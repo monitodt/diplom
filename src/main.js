@@ -8,7 +8,6 @@ import WebFont from 'webfontloader'
 import firebase from 'firebase'
 import firebaseConfig from './config/firebase'
 
-
 Vue.use(Vuetify)
 
 Vue.config.productionTip = false
@@ -30,5 +29,5 @@ new Vue({
     firebase.auth().onAuthStateChanged(function(user) {
       vm.$store.dispatch("STATE_CHANGED", user)
     })
-  }
+  },
 }).$mount('#app')

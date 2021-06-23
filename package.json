@@ -5,13 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "start": "node server.js",
     "lint": "vue-cli-service lint",
     "make:component": "vue-cli-service make:component",
     "make:directive": "vue-cli-service make:directive",
     "make:layout": "vue-cli-service make:layout",
     "make:mixin": "vue-cli-service make:mixin",
-    "make:view": "vue-cli-service make:view"
+    "make:view": "vue-cli-service make:view",
+    "start": "node server.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",

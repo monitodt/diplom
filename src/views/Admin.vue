@@ -38,6 +38,23 @@
           </v-data-table>
         </v-card>
       </v-col>
+      <v-col>
+        <v-card width="700px">
+          <v-data-table
+            :headers="headers2"
+            :items="ip ? ip : []"
+            class="elevation-1"
+            :loading="!ip"
+            :loading-text="loadingText"
+          >
+            <template v-slot:item.id="{ item }">
+              <v-icon style="cursor: pointer" @click="deleteIpRequest(item)">
+                mdi-delete-off</v-icon
+              >
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-col>
     </v-row>
     <v-btn @click="exit()">Выйти</v-btn>
   </v-container>
@@ -93,6 +110,29 @@ export default {
           value: "id",
         },
       ],
+      headers2: [
+        {
+          text: "Город",
+          sortable: true,
+          value: "city",
+        },
+        {
+          text: "Регион",
+          sortable: true,
+          value: "region",
+        },
+        {
+          text: "IP",
+          align: "start",
+          sortable: true,
+          value: "ip",
+        },
+        {
+          text: "",
+          sortable: false,
+          value: "id",
+        },
+      ],
       loading: true,
       loadingText: "Загрузка данных",
     };
@@ -110,6 +150,12 @@ export default {
         id: company.id,
       });
     },
+    deleteIpRequest(ip) {
+      this.$store.dispatch("DELETE_IP_REQUEST", {
+        ip: ip,
+        id: ip.id,
+      });
+    },
     exit() {
       this.$store.dispatch("SIGNOUT");
       this.$router.push("/");
@@ -121,6 +167,9 @@ export default {
     },
     companies() {
       return this.$store.getters.companies;
+    },
+    ip() {
+      return this.$store.getters.ip;
     },
   },
 };

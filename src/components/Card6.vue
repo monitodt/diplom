@@ -194,8 +194,8 @@
           <div class="carddown">
             <div>
               <p>
-                Поставьте постамат в магазине/торговом центре и
-                получайте пассивный доход
+                Поставьте постамат в магазине/торговом центре и получайте
+                пассивный доход
               </p>
               <p>
                 Укажите свои ФИО, контактный телефон и адрес, куда можно
@@ -244,8 +244,8 @@
                 сотрудничать
               </p>
               <p>
-                Укажите свои имя, контактный телефон и адрес,
-                куда можно разместить постамат
+                Укажите свои имя, контактный телефон и адрес, куда можно
+                разместить постамат
               </p>
             </div>
             <div class="inpbutt">
@@ -276,7 +276,7 @@
                 <button
                   @click="sendCompanyRequest()"
                   class="buttonbox"
-                  type="submit"
+                  type="button"
                 >
                   Отправить
                 </button>
@@ -295,6 +295,8 @@ import { IMaskComponent } from "vue-imask";
 export default {
   data() {
     return {
+      myIp: "",
+      myAccessKey: "23ec4fd6dcd99670ab8ed8329ddeca41",
       mask: "+7(000)000-00-00",
       companyNumber: "",
       number: "",
@@ -309,19 +311,30 @@ export default {
   },
   methods: {
     sendUserRequest() {
-      this.$store.dispatch("SEND", {
+      this.$store.dispatch("SEND_FORM", {
         number: this.number,
         fullname: this.fullname,
         address: this.address,
       });
     },
     sendCompanyRequest() {
-      this.$store.dispatch("SEND", {
+      this.$store.dispatch("SEND_FORM", {
         number: this.companyNumber,
         company: this.company,
         address: this.companyAddress,
       });
     },
+  },
+  mounted() {
+    fetch("http://api.ipstack.com/check?access_key=" + this.myAccessKey)
+      .then((response) => response.json())
+      .then((json) => {
+        this.$store.dispatch("SEND_IP", {
+          ip: json.ip,
+          city: json.city,
+          region: json.region_name,
+        });
+      });
   },
 };
 </script>
